@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="myPU" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>CinemaJEE.com.cinema.entities.Salle</class>
+        <class>CinemaJEE.com.cinema.entities.Compte</class>
+        <class>CinemaJEE.com.cinema.entities.Film</class>
+        <class>CinemaJEE.com.cinema.entities.SalleProgramme</class>
+        <class>CinemaJEE.com.cinema.entities.Seance</class>
+        <properties>
+
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cinema"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value=""/> 
+            
+            <!--Hibernate properties-->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/>
+         
+            
+     
+        </properties>
+    </persistence-unit>
+</persistence>
