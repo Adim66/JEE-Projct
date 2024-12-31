@@ -1,3 +1,4 @@
+/ArchType : Maven Widfly Web-App  
 This project was created from the archetype "wildfly-jakartaee-webapp-archetype".
 
 To deploy it:
