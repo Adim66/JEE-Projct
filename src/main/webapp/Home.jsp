@@ -13,15 +13,15 @@
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Cinema Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>s
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="createAccount.jsp">Create Account</a>
+                        <a class="nav-link" href="createAccount.jee">Create Account</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="addFilm.jsp">Add Film</a>
+                        <a class="nav-link" href="addFilm.jee">Add Film</a>
                     </li>
                 </ul>
             </div>
