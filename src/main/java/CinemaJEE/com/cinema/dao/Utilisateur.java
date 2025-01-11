@@ -12,4 +12,6 @@ public interface Utilisateur {
 	public void   debite(float f);
 	public Compte save(Compte c);
 	public void setEm(EntityManager em);
-}
+	public int getUser_id();
+	public void setUser_id(int id);
+}   

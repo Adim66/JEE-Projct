@@ -5,6 +5,10 @@
 <%
     // On récupère la liste des séances depuis l'attribut de la requête
     List<Seance> seances = (List<Seance>) request.getAttribute("seances");
+    String id_user=  (String) request.getAttribute("id_compte");
+  
+  
+    
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,8 +69,9 @@
                         <td><%= seance.getTarif() %></td>
                         <td><%= seance.getSalle().getSalle_mere().getAdress() %></td>
                         <td>
-                            <form action="pageX.jsp" method="GET">
+                            <form action="Payment.jee" method="POST">
                                 <input type="hidden" name="seanceId" value="<%= seance.getId() %>">
+                                 <input type="hidden" name="id_user" value="<%= id_user %>">
                                 <button type="submit" class="reservation-btn">RESERVATION</button>
                             </form>
                         </td>

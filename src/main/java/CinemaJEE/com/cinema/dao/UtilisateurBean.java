@@ -90,13 +90,23 @@ public class UtilisateurBean implements Utilisateur {
 		    	            //throw new UserNotFoundException();  
 		    	        }else{  
 		    	            compte = res.get(0);  
-		    	            compte.setSolde(solde-f);  
+		    	            System.out.println(compte.getSolde());
+		    	            compte.setSolde(solde-f);
+		    	            em.getTransaction().begin();
 		    	            em.merge(compte);  
+		    	            em.getTransaction().commit();
+		    	            System.out.println(compte.getSolde());
 		    	        }  
 		    	        
 		    	        }  
 		    	       
 }
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
 	public Compte save(Compte compte)  {
 		try {
 		em.getTransaction().begin();

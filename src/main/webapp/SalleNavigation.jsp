@@ -3,6 +3,8 @@
 <%
  NavigationSallesProModel  model= ( NavigationSallesProModel)  request.getAttribute("model_salles");
 Set<SalleProgramme> salleProgrammes = (Set<SalleProgramme>) model.getSalles_prog();
+ String id =  (String) request.getAttribute("id_user");
+
         %>
 <!DOCTYPE html>
 <html>
@@ -68,6 +70,7 @@ Set<SalleProgramme> salleProgrammes = (Set<SalleProgramme>) model.getSalles_prog
             <p>Film : <%= salleProg.getFilm().getName() %></p>
             <form action="SeancesSalle.jee" method="GET">
                 <input type="hidden" name="salleProgId" value="<%= salleProg.getId() %>">
+                <input type="hidden" name="id" value="<%= model.getId() %>">
                 <button type="submit" class="btn">Naviguer les séances</button>
             </form>
         </div>

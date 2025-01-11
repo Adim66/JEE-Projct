@@ -1,7 +1,10 @@
 package CinemaJEE.com.cinema.dao;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import CinemaJEE.com.cinema.entities.Film;
 import CinemaJEE.com.cinema.entities.Salle;
@@ -47,8 +50,8 @@ public class CinemaBean implements Cinema {
 	public Set<Film> findByPattern(String pattern) {
 		// TODO Auto-generated method stub
 		Set<Film> set = new HashSet();
-		Query query = em.createQuery("select f from film f where name = :a ");
-		query.setParameter(pattern, "a");
+		Query query = em.createQuery("select f from Film f where f.name like : a ");
+		query.setParameter("a","%" + pattern + "%");
 		set.addAll(query.getResultList());
 		return set;
 	}
@@ -68,20 +71,23 @@ public class CinemaBean implements Cinema {
 		try {
 		    // Récupérer SalleProgramme en fonction de l'ID de la séance
 		    Query queryone = em.createQuery("SELECT s FROM SalleProgramme s WHERE s.id = :id");
-		    queryone.setParameter("id", seance.getId());
+		    queryone.setParameter("id", seance.getSalle().getId());
 		    SalleProgramme salleprog = (SalleProgramme) queryone.getSingleResult();
-
+            //seance.getSalle().getSalle_mere();
 		    // Récupérer Salle en fonction de la SalleProgramme
-		    Query querytwo = em.createQuery("SELECT s FROM Salle s WHERE s.salleProg = :salleProg");
-		    querytwo.setParameter("salleProg", salleprog);
-		    Salle salle = (Salle) querytwo.getSingleResult();
-
+		   // Query querytwo = em.createQuery("SELECT s FROM Salle s WHERE s.salleProg = :salleProg");
+		   // querytwo.setParameter("salleProg", salleprog);
+		   // Salle salle = (Salle) querytwo.getSingleResult();
+                 Salle salle=seance.getSalle().getSalle_mere();
 		    // Vérification de la capacité
-		    if (salle.getCapacite() == seance.getPlaces()) {
+		    if (salle.getCapacite() <= seance.getPlaces()) {
 		        throw new IllegalStateException("La salle est pleine. Impossible de réserver plus de places.");
 		    } else {
 		        // Mise à jour des places disponibles et débit utilisateur
 		        seance.setPlaces(seance.getPlaces() + 1);
+		        em.getTransaction().begin();
+		        em.merge(seance);
+		        em.getTransaction().commit();
 		        u.debite(seance.getTarif());
 		    }
 		} catch (NoResultException e) {
@@ -107,19 +113,38 @@ public class CinemaBean implements Cinema {
         System.out.println(set.size());
 		return set;
 	}
+	public Set<Salle> getAllSalle(int choix, String [] tab_ids) {
+		// TODO Auto-generated method stub
+		Set<Salle> set = new HashSet();
+		if(choix==0) {
+		Query queryone = em.createQuery("select s from Salle s ");//maj
+		set.addAll(queryone.getResultList());
+		}
+		else {
+			List<Integer> ids = new ArrayList<>();
+			for (String id : tab_ids) {
+			    ids.add(Integer.parseInt(id));
+			}
+			Query queryone = em.createQuery("select s from Salle s where s.id in :ids");
+			queryone.setParameter("ids",ids);
+			set.addAll(queryone.getResultList());
+		}
+		
+        System.out.println(set.size());
+		return set;
+	}
+
 
 	@Override
-	public Film createFilm(String name) {
+	public Film createFilm(Film film) {
 		// TODO Auto-generated method stub
-		Film film = new Film();
-		film.setName(name);
 		em.getTransaction().begin();
 		em.persist(film);
 		em.getTransaction().commit();
-		Query q = em.createQuery("select f from film f where f.name:n ");
-		q.setParameter(name, "n");
-
-		return (Film) q.getResultList();
+		//Query q = em.createQuery("select f from film f where f.name =:n ");
+		//q.setParameter("n", film.getName());
+		System.out.println("filmadded");
+		return film;
 	}
 
 	@Override

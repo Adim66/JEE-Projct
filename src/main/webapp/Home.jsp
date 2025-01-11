@@ -21,7 +21,7 @@
                         <a class="nav-link" href="createAccount.jee">Create Account</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="addFilm.jee">Add Film</a>
+                        <a class="nav-link" href="addFilm.jee">Login</a>
                     </li>
                 </ul>
             </div>

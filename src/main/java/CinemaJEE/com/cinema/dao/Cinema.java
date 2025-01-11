@@ -3,6 +3,7 @@ package CinemaJEE.com.cinema.dao;
 import java.util.Set;
 
 import CinemaJEE.com.cinema.entities.Film;
+import CinemaJEE.com.cinema.entities.Salle;
 import CinemaJEE.com.cinema.entities.SalleProgramme;
 import CinemaJEE.com.cinema.entities.Seance;
 import jakarta.persistence.EntityManager;
@@ -22,11 +23,12 @@ public interface Cinema {
 
 	public Set<SalleProgramme> getAllSalleProg();
 
-	public Film createFilm(String name);
+	public Film createFilm(Film film);
 
 	public void update(Film f);
 
 	public float getTarif();
+	public Set<Salle> getAllSalle(int choix,String[] tab_ids);
 
 	public void setEm(EntityManager em);
 }
